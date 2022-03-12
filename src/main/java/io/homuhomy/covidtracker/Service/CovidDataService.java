@@ -26,6 +26,11 @@ public class CovidDataService {
     private static String VirusDataUrl = "https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv";
 
     private List<LocationStats> allStats = new ArrayList<>();
+
+    public List<LocationStats> getAllStats() {
+        return allStats;
+    }
+
     @PostConstruct
     @Scheduled(cron = "* * 1 * * *") //update every day
     public void fetchVirusData() throws IOException, InterruptedException {
@@ -42,7 +47,10 @@ public class CovidDataService {
         for (CSVRecord record : records) {
             LocationStats locationStat = new LocationStats();
             locationStat.setState(record.get("state"));
-            locationStat.setCases_new(Integer.parseInt(record.get(record.size()-1)));
+            int latestCases = Integer.parseInt(record.get(record.size()-1));
+            int prevDayCases = Integer.parseInt(record.get(record.size()-2));
+            locationStat.setLatestTotalCases(latestCases);
+            locationStat.setLatestTotalCases(latestCases - prevDayCases);
             System.out.println(locationStat);
             newStats.add(locationStat);
         }

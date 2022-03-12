@@ -2,7 +2,16 @@ package io.homuhomy.covidtracker.Service.models;
 
 public class LocationStats {
     private String state;
-    private int cases_new;
+    private int latestTotalCases;
+    private int diffFromPrevDay;
+
+    public int getDiffFromPrevDay() {
+        return diffFromPrevDay;
+    }
+
+    public void setDiffFromPrevDay(int diffFromPrevDay) {
+        this.diffFromPrevDay = diffFromPrevDay;
+    }
 
     public String getState() {
         return state;
@@ -12,19 +21,19 @@ public class LocationStats {
         this.state = state;
     }
 
-    public int getCases_new() {
-        return cases_new;
+    public int getLatestTotalCases() {
+        return latestTotalCases;
     }
 
-    public void setCases_new(int cases_new) {
-        this.cases_new = cases_new;
+    public void setLatestTotalCases(int latestTotalCases) {
+        this.latestTotalCases = latestTotalCases;
     }
 
     @Override
     public String toString() {
         return "LocationStats{" +
                 "state='" + state + '\'' +
-                ", cases_new=" + cases_new +
+                ", latestTotalCases=" + latestTotalCases +
                 '}';
     }
 }
